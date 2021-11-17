@@ -5,7 +5,6 @@ window.addEventListener("load", function() {
 
 });
 
-
 window.onload = function(){
 	var video = document.querySelector("#player1"); 
 	var currentspeed = 1;
@@ -19,45 +18,50 @@ window.onload = function(){
 	var mutebtn = document.getElementById("mute");
 	var vslider = document.getElementById("slider");
 	var vintagebtn = document.getElementById("vintage");
-	var origbtn = document.getElementById("orig")
+	var origbtn = document.getElementById("orig");
 
-	playbtn.onclick = function(){
+	
+	playbtn.addEventListener("click",function(){
 		video.play();
 		console.log("Play Video");
-		// document.querySelector("#volume").innerHTML = volumePercent + "%";
-	}
+		document.querySelector("#volume").innerHTML = currentvolume + "%";
+	});
 
-	pausebtn.onclick = function(){
+	pausebtn.addEventListener("click",function(){
 		video.pause();
 		console.log("Pause Video");
-	}
+	});
 
-	slowerbtn.onclick = function(){
+	slowerbtn.addEventListener("click",function(){
 		currentspeed = currentspeed * 0.95;
 		video.playbackRate = currentspeed;
-		console.log("New speed is" + currentspeed);
-	}
+		console.log("New speed is " + currentspeed);
+	});
 
-	fasterbtn.onclick = function(){
+	fasterbtn.addEventListener("click",function(){
 		currentspeed = currentspeed / 0.95;
 		video.playbackRate = currentspeed;
-		console.log("New speed is" + currentspeed);
-	}
+		console.log("New speed is " + currentspeed);
+	});
 
-	skipbtn.onclick = function(){
-		console.log("Original location" + video.currentTime);
+	skipbtn.addEventListener("click",function(){
+		console.log("Original location " + video.currentTime);
 		let newtime = video.currentTime + 15;
 		if(newtime > video.duration){
 			video.currentTime = 0;
 			newtime = 0;
-			console.log("Going back to beginning ");
+			console.log("Going back to beginning");
+			console.log("New location 0");
 
 		}
-		console.log("New location" + newtime);
+		else{
+			video.currentTime = newtime;	
+			console.log("New location " + newtime);
+		}
 
-	}
+	});
 
-	mutebtn.onclick = function(){
+	mutebtn.addEventListener("click",function(){
 		if(mutestatus == true){
 			mutestatus = false;
 			video.muted = false;
@@ -72,28 +76,27 @@ window.onload = function(){
 
 		}
 
-	}
+	});
 
-	vslider.oninput=function(){
+	vslider.addEventListener("input",function(){
 		currentvolume = document.getElementById("slider").value;
-		video.volume = currentvolume * 0.01;
+		video.volume = currentvolume/100;
 		document.getElementById("volume").innerHTML = currentvolume + "%";
 		console.log(video.volume);
 		
-	}
+	});
 
-	vintagebtn.onclick = function(){
+	vintagebtn.addEventListener("click",function(){
 		video.classList.add("oldSchool");
-
-	}
-
-	origbtn.onclick = function(){
-		video.classList.remove("oldSchool");
-	}
-
-
 	
+	});
+
+	origbtn.addEventListener("click",function(){
+		video.classList.remove("oldSchool");
+	});
+
 }
+	
 // document.querySelector("#play").addEventListener("click", function() {
 // 	console.log("Play Video");
 // });
